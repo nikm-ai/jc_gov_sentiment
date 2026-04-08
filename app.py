@@ -542,11 +542,12 @@ A flag penalty applies for discrete risk events requiring analyst escalation.
             elif val > 0: return f"color: {GREEN}"
             return ""
 
-        st.dataframe(
-            df_breakdown.style.applymap(color_contrib, subset=["Score Contribution"]),
-            use_container_width=True,
-            hide_index=True,
-        )
+        try:
+            styled = df_breakdown.style.map(color_contrib, subset=["Score Contribution"])
+        except AttributeError:
+            # pandas < 2.1 fallback
+            styled = df_breakdown.style.applymap(color_contrib, subset=["Score Contribution"])
+        st.dataframe(styled, use_container_width=True, hide_index=True)
 
         total_contrib = sum(r[3] for r in rows)
         st.markdown(f"""<div class="kpi-card" style="margin-top:0.75rem;">
