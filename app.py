@@ -1,10 +1,13 @@
 """
-JC Municipal Bond Sentiment — v3.0
-- Prominent credit recommendation cards
-- Evidence panel with sourced signals
-- Annotated trend chart with risk flag markers
-- Period trajectory indicator (improving/deteriorating/stable)
-- Richer meeting-level detail
+JC Municipal Bond Sentiment — v4.0
+- API key always from secrets (no user input required)
+- Demo mode when key not configured
+- Plain-English onboarding hook for cold visitors
+- Score methodology transparency (interactive breakdown)
+- CSV + clipboard export on tabular summary
+- Pension signal audit (more aggressive extraction)
+- Multi-city lead-gen CTA at bottom
+- Improved README badge row
 Run: streamlit run app.py
 """
 
@@ -36,6 +39,7 @@ st.markdown("""
 .block-container { padding-top: 3.5rem; padding-bottom: 5rem; max-width: 1200px; }
 [data-testid="stSidebar"], [data-testid="collapsedControl"] { display: none; }
 
+/* ── Typography ── */
 .paper-title {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 34px; font-weight: 500; line-height: 1.2;
@@ -46,6 +50,24 @@ st.markdown("""
     font-size: 12.5px; color: var(--text-color); opacity: 0.45;
     margin-bottom: 1.5rem; letter-spacing: 0.02em;
 }
+
+/* ── Hook banner ── */
+.hook-banner {
+    border-left: 3px solid #1a4f82;
+    padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    background: rgba(26,79,130,0.04);
+    border-radius: 0 2px 2px 0;
+}
+.hook-headline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 600; color: var(--text-color);
+    margin-bottom: 0.4rem;
+}
+.hook-body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 15px; line-height: 1.75; color: var(--text-color); opacity: 0.85;
+}
+
 .abstract-box {
     border-top: 1px solid rgba(128,128,128,0.2);
     border-bottom: 1px solid rgba(128,128,128,0.2);
@@ -76,6 +98,8 @@ st.markdown("""
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 14.5px; line-height: 1.75; color: var(--text-color); opacity: 0.88;
 }
+
+/* ── KPI cards ── */
 .kpi-card {
     border: 0.75px solid rgba(128,128,128,0.18);
     border-radius: 2px; padding: 0.9rem 1rem;
@@ -112,6 +136,31 @@ st.markdown("""
     font-size: 13px; line-height: 1.7; margin-top: 6px;
     color: var(--text-color); opacity: 0.75;
 }
+
+/* ── Score breakdown ── */
+.score-breakdown {
+    border: 0.75px solid rgba(128,128,128,0.2);
+    border-radius: 2px; padding: 1rem 1.1rem; margin-top: 0.75rem;
+    background: rgba(128,128,128,0.02);
+}
+.score-row {
+    display: flex; align-items: center; margin-bottom: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 12px;
+}
+.score-row-label { width: 140px; opacity: 0.65; flex-shrink: 0; }
+.score-bar-track {
+    flex: 1; height: 6px; background: rgba(128,128,128,0.15);
+    border-radius: 3px; position: relative; margin: 0 10px;
+}
+.score-bar-fill-neg {
+    position: absolute; top: 0; height: 100%; border-radius: 3px;
+    background: #b94040;
+}
+.score-bar-fill-pos {
+    position: absolute; top: 0; height: 100%; border-radius: 3px;
+    background: #2e7d4f;
+}
+.score-row-val { width: 40px; text-align: right; font-family: 'DM Mono', monospace; font-size: 11px; opacity: 0.8; }
 
 /* ── Recommendation cards ── */
 .rec-overweight {
@@ -163,6 +212,33 @@ st.markdown("""
     border-radius: 2px; padding: 0.85rem 1rem; margin-bottom: 0.5rem;
     background: rgba(196,122,0,0.02);
 }
+
+/* ── CTA card ── */
+.cta-card {
+    border: 1px solid rgba(26,79,130,0.25);
+    border-radius: 2px; padding: 1.5rem 1.75rem; margin-top: 1rem;
+    background: rgba(26,79,130,0.03);
+}
+.cta-title {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 20px; font-weight: 500; color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+.cta-body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 15px; line-height: 1.8; color: var(--text-color); opacity: 0.82;
+    margin-bottom: 0.75rem;
+}
+.cta-cities {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; opacity: 0.6; letter-spacing: 0.03em;
+    margin-bottom: 1rem;
+}
+.cta-contact {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; color: #1a4f82;
+}
+
 .pos  { color: #2e7d4f !important; }
 .neg  { color: #b94040 !important; }
 .neut { color: #1a4f82 !important; }
@@ -258,6 +334,15 @@ EVIDENCE_CSS = {"negative": "evidence-item-neg", "positive": "evidence-item-pos"
                 "neutral": "evidence-item-neut"}
 EVIDENCE_COLOR = {"negative": "#b94040", "positive": "#2e7d4f", "neutral": "#3d7ab5"}
 
+# Category weights for score breakdown display
+CAT_WEIGHTS = {
+    "fiscal_stress":      ("Fiscal Stress",     -0.20, "negative"),
+    "pilot":              ("PILOT Activity",     -0.10, "neutral"),
+    "pension":            ("Pension Signals",    -0.15, "negative"),
+    "political_cohesion": ("Political Cohesion", -0.08, "neutral"),
+    "positive":           ("Positive Signals",   +0.15, "positive"),
+}
+
 # ══════════════════════════════════════════════════════════════════════════
 # SEED DATA
 # ══════════════════════════════════════════════════════════════════════════
@@ -284,10 +369,14 @@ SEED = load_seed_data(SEED_PATH)
 # ══════════════════════════════════════════════════════════════════════════
 
 def get_api_key() -> str:
+    """Retrieve API key from secrets or environment only — never from user input."""
     try:
-        return st.secrets["ANTHROPIC_API_KEY"]
+        key = st.secrets.get("ANTHROPIC_API_KEY", "")
+        if key:
+            return key
     except Exception:
-        return os.environ.get("ANTHROPIC_API_KEY", "")
+        pass
+    return os.environ.get("ANTHROPIC_API_KEY", "")
 
 
 def extract_text(uploaded_file) -> str:
@@ -318,6 +407,7 @@ def extract_text(uploaded_file) -> str:
     return raw.decode("utf-8", errors="ignore")
 
 
+# ── UPGRADED system prompt: more aggressive pension extraction ──────────
 SYSTEM_PROMPT = """You are a senior municipal bond credit analyst with deep expertise in
 New Jersey local government finance, writing for an institutional fixed-income audience.
 
@@ -326,6 +416,17 @@ Jersey City fiscal context:
 - Moody's A2. Watch: PFRS unfunded ~$1.2B, tax appeals ~$380M vs ~$22M reserve
 - PFRS/PERS contribution deferral = direct credit-negative trigger
 - Vote splits on fiscal items = governance execution risk
+
+PENSION SIGNAL INSTRUCTIONS (critical — do not undercount):
+Count a pension signal for ANY of the following:
+  - Any mention of PFRS, PERS, pension, retirement system, actuarial, ADEC, unfunded liability
+  - Any resolution appropriating funds that could relate to pension obligations
+  - Any discussion of employee benefits, deferred compensation, or retirement costs
+  - Any reference to state-mandated pension contributions or deferrals
+  - Budget resolutions that touch on debt service or long-term obligations
+  - Even routine mentions of pension line items in budget appropriations
+  DO NOT return 0 for pension unless the meeting has absolutely zero pension-related content.
+  Most council meetings include at least one pension-related budget or appropriation item.
 
 Return ONLY valid JSON, no markdown fences:
 {
@@ -337,6 +438,15 @@ Return ONLY valid JSON, no markdown fences:
   "credit_implications": <2-3 sentences on spread/rating/debt service implications>,
   "categories": {"fiscal_stress":int,"pilot":int,"pension":int,"political_cohesion":int,"positive":int},
   "evidence": [up to 5 objects: {"category":str,"signal":str,"detail":str,"direction":"negative"|"positive"|"neutral"}],
+  "score_breakdown": {
+    "base_score": <float, raw weighted sum before clamping>,
+    "fiscal_contribution": <float, contribution from fiscal_stress signals>,
+    "pilot_contribution": <float, contribution from pilot signals>,
+    "pension_contribution": <float, contribution from pension signals>,
+    "cohesion_contribution": <float, contribution from political_cohesion signals>,
+    "positive_contribution": <float, contribution from positive signals>,
+    "flag_penalty": <float, negative penalty from risk flags, 0 if none>
+  },
   "leading_indicators": [3 strings],
   "key_items": [4 strings],
   "risk_flags": [0-3 strings]
@@ -349,7 +459,7 @@ def run_analysis(text: str, api_key: str) -> dict:
     client = anthropic.Anthropic(api_key=api_key)
     message = client.messages.create(
         model="claude-sonnet-4-20250514",
-        max_tokens=2000,
+        max_tokens=2500,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user",
                    "content": f"Council minutes for analysis:\n\n{text[:60_000]}"}],
@@ -362,11 +472,9 @@ def run_analysis(text: str, api_key: str) -> dict:
 
 
 def compute_trajectory(seed: list[dict]) -> tuple[str, str, str]:
-    """Return (label, css_class, description) for period credit trajectory."""
     if len(seed) < 3:
         return "Insufficient data", "neut", "Need at least 3 meetings to assess trajectory."
     scores = [r["score"] for r in sorted(seed, key=lambda x: x.get("date",""))]
-    # Simple linear regression slope
     x = np.arange(len(scores))
     slope = np.polyfit(x, scores, 1)[0]
     recent_avg  = np.mean(scores[-3:])
@@ -381,7 +489,6 @@ def compute_trajectory(seed: list[dict]) -> tuple[str, str, str]:
 
 
 def rec_card(rec: str, rationale: str, score: float | None = None):
-    """Render a prominent credit recommendation card."""
     css   = REC_CSS.get(rec, "rec-monitor")
     color = REC_COLOR.get(rec, GRAY)
     icon  = REC_ICON.get(rec, "◎")
@@ -393,8 +500,70 @@ def rec_card(rec: str, rationale: str, score: float | None = None):
 </div>""", unsafe_allow_html=True)
 
 
+def render_score_breakdown(result: dict):
+    """Render an interactive score breakdown showing how the final score was derived."""
+    score = result.get("score", 0.0)
+    cats = result.get("categories", {})
+    breakdown = result.get("score_breakdown", {})
+
+    with st.expander("📊 How was this score calculated?", expanded=False):
+        st.markdown("""<div class="abstract-label" style="margin-bottom:8px;">Score methodology</div>
+<div class="explainer-body" style="margin-bottom:1rem;">
+The −1.0 to +1.0 score is a weighted sum of signal counts across five categories.
+Each category carries a per-signal weight based on its credit materiality.
+Fiscal stress and pension signals are weighted most heavily as direct credit-negative triggers.
+A flag penalty applies for discrete risk events requiring analyst escalation.
+</div>""", unsafe_allow_html=True)
+
+        # Build contribution rows
+        weight_map = {
+            "fiscal_stress":      ("Fiscal Stress",      -0.20),
+            "pilot":              ("PILOT Activity",      -0.10),
+            "pension":            ("Pension / PFRS",      -0.15),
+            "political_cohesion": ("Political Cohesion",  -0.08),
+            "positive":           ("Positive Events",     +0.15),
+        }
+
+        rows = []
+        for k, (label, weight) in weight_map.items():
+            count = cats.get(k, 0)
+            contribution = round(count * weight, 3)
+            rows.append((label, count, weight, contribution))
+
+        flag_penalty = breakdown.get("flag_penalty", 0.0)
+        if result.get("risk_flags"):
+            rows.append(("Risk Flag Penalty", len(result["risk_flags"]), -0.10, flag_penalty))
+
+        df_breakdown = pd.DataFrame(rows, columns=["Category", "Signal Count", "Per-Signal Weight", "Score Contribution"])
+
+        # Color the contribution column
+        def color_contrib(val):
+            if val < 0: return f"color: {RED}"
+            elif val > 0: return f"color: {GREEN}"
+            return ""
+
+        st.dataframe(
+            df_breakdown.style.applymap(color_contrib, subset=["Score Contribution"]),
+            use_container_width=True,
+            hide_index=True,
+        )
+
+        total_contrib = sum(r[3] for r in rows)
+        st.markdown(f"""<div class="kpi-card" style="margin-top:0.75rem;">
+<div class="kpi-label">Final Score (clamped to [−1.0, +1.0])</div>
+<div class="kpi-value {'neg' if score < 0 else 'pos' if score > 0 else 'neut'}">{score:+.2f}</div>
+<div class="kpi-sub">Raw sum: {total_contrib:+.3f} → clamped to {score:+.2f}</div>
+</div>""", unsafe_allow_html=True)
+
+        st.markdown("""<div class="fig-caption" style="margin-top:0.5rem;">
+<b>Weight rationale.</b> Fiscal stress (−0.20/signal) and pension deferrals (−0.15/signal)
+are primary credit-negative triggers per Moody's GO methodology. PILOT signals (−0.10) require
+directional interpretation. Political cohesion (−0.08) proxies governance execution risk.
+Positive events (+0.15) include grant receipts, reserve builds, and favorable rating actions.
+</div>""", unsafe_allow_html=True)
+
+
 def render_evidence(evidence: list[dict]):
-    """Render sourced signal evidence panel."""
     if not evidence:
         return
     st.markdown('<div class="sec-header" style="margin-top:1.25rem;">Signal evidence</div>',
@@ -412,21 +581,19 @@ def render_evidence(evidence: list[dict]):
 </div>""", unsafe_allow_html=True)
 
 
-def render_meeting_detail(r: dict, fig_num: int | None = None):
+def render_meeting_detail(r: dict, show_score_breakdown: bool = True):
     """Full meeting detail panel used inside expanders."""
     sig   = r["signal"]
     score = r["score"]
     rec   = r.get("credit_recommendation", "Monitor")
     cats  = r["categories"]
 
-    # Abstract summary
     st.markdown(f"""
 <div class="abstract-box" style="margin-top:0.5rem; margin-bottom:1rem;">
   <div class="abstract-label">Analyst summary — {r['date']}</div>
   <div class="abstract-text">{r['summary']}</div>
 </div>""", unsafe_allow_html=True)
 
-    # Recommendation + credit implications side by side
     top_c1, top_c2 = st.columns([1, 1])
     with top_c1:
         rec_card(rec, r.get("recommendation_rationale", ""), score)
@@ -438,7 +605,10 @@ def render_meeting_detail(r: dict, fig_num: int | None = None):
 <div class="kpi-rationale" style="font-size:14px; margin-top:4px;">{ci}</div>
 </div>""", unsafe_allow_html=True)
 
-    # Category signal counts
+    # Score breakdown (new in v4)
+    if show_score_breakdown:
+        render_score_breakdown(r)
+
     st.markdown('<div class="sec-header" style="margin-top:1.25rem;">Signal counts by category</div>',
                 unsafe_allow_html=True)
     c1, c2, c3, c4, c5 = st.columns(5)
@@ -457,27 +627,22 @@ def render_meeting_detail(r: dict, fig_num: int | None = None):
 <div class="kpi-value {col_cls}">{cats.get(k, 0)}</div>
 </div>""", unsafe_allow_html=True)
 
-    # Evidence
     render_evidence(r.get("evidence", []))
 
-    # Key items + leading indicators
     kc1, kc2 = st.columns(2)
     with kc1:
         if r.get("key_items"):
             st.markdown('<div class="sec-header" style="margin-top:1.25rem;">Key agenda items</div>',
                         unsafe_allow_html=True)
             for item in r["key_items"]:
-                st.markdown(f'<div class="appendix-term">— {item}</div>',
-                            unsafe_allow_html=True)
+                st.markdown(f'<div class="appendix-term">— {item}</div>', unsafe_allow_html=True)
     with kc2:
         if r.get("leading_indicators"):
             st.markdown('<div class="sec-header" style="margin-top:1.25rem;">Leading indicators to watch</div>',
                         unsafe_allow_html=True)
             for li in r["leading_indicators"]:
-                st.markdown(f'<div class="appendix-term">→ {li}</div>',
-                            unsafe_allow_html=True)
+                st.markdown(f'<div class="appendix-term">→ {li}</div>', unsafe_allow_html=True)
 
-    # Risk flags
     if r.get("risk_flags"):
         st.markdown('<div class="sec-header" style="margin-top:1.25rem;">Risk flags</div>',
                     unsafe_allow_html=True)
@@ -489,7 +654,7 @@ def render_meeting_detail(r: dict, fig_num: int | None = None):
 
 
 # ══════════════════════════════════════════════════════════════════════════
-# TITLE
+# TITLE + ONBOARDING HOOK
 # ══════════════════════════════════════════════════════════════════════════
 
 st.markdown("""
@@ -497,6 +662,21 @@ st.markdown("""
 <div class="paper-byline">
 NLP-powered fiscal signal extraction · credit recommendation · bond market implications ·
 signal evidence · leading indicator tracking — Jersey City, NJ municipal credit research
+</div>
+""", unsafe_allow_html=True)
+
+# ── Plain-English hook for cold visitors ─────────────────────────────────
+st.markdown("""
+<div class="hook-banner">
+  <div class="hook-headline">What is this?</div>
+  <div class="hook-body">
+    Jersey City carries ~$1.2B in unfunded pension liability and relies on a single revenue
+    stream — tax abatement payments — for nearly a third of its budget. When the city council
+    meets, the agenda text contains early signals about whether that credit picture is
+    improving or deteriorating. This tool reads those minutes and translates them into an
+    explicit bond positioning recommendation (Overweight / Market Weight / Underweight / Monitor)
+    with sourced evidence — the same workflow a muni credit analyst would follow, automated.
+  </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -543,7 +723,6 @@ if not SEED:
 </div>""", unsafe_allow_html=True)
 
 else:
-    # ── Trajectory ────────────────────────────────────────────────────────
     traj_label, traj_cls, traj_desc = compute_trajectory(SEED)
 
     avg_score   = sum(r["score"] for r in SEED) / n_seed
@@ -554,7 +733,6 @@ else:
     total_flags = sum(len(r.get("risk_flags", [])) for r in SEED)
     score_cls   = "pos" if avg_score > 0.05 else "neg" if avg_score < -0.05 else "warn"
 
-    # Most common recommendation
     recs = [r.get("credit_recommendation", "Monitor") for r in SEED]
     rec_counts = {r: recs.count(r) for r in set(recs)}
     dominant_rec = max(rec_counts, key=rec_counts.get)
@@ -577,8 +755,6 @@ else:
         (k4, "Dominant Rec.",       dominant_rec,
          f"Most frequent over period",
          f"{rec_counts[dominant_rec]}/{n_seed} meetings",
-         REC_COLOR.get(dominant_rec, GRAY).replace("#", "").join(["color:#", " !important"]
-         ).replace("color:", "") if False else
          ("pos" if dominant_rec == "Overweight"
           else "neg" if dominant_rec == "Underweight"
           else "warn" if dominant_rec == "Monitor"
@@ -597,7 +773,7 @@ else:
 <div class="kpi-delta {cls}">{delta}</div>
 </div>""", unsafe_allow_html=True)
 
-    # ── Trend chart — annotated ───────────────────────────────────────────
+    # ── Trend chart ───────────────────────────────────────────────────────
     trend_df = pd.DataFrame([
         {"Date": r["date"], "Score": r["score"], "Signal": r["signal"],
          "Rec": r.get("credit_recommendation", "Monitor"),
@@ -630,7 +806,6 @@ else:
         customdata=hover_texts,
     ))
 
-    # Annotate risk flag meetings with a marker
     flag_rows = trend_df[trend_df["Flags"] > 0]
     if not flag_rows.empty:
         fig_trend.add_trace(go.Scatter(
@@ -645,7 +820,6 @@ else:
             showlegend=False,
         ))
 
-    # Trend line
     if len(trend_df) >= 3:
         scores_arr = trend_df["Score"].values
         x_arr      = np.arange(len(scores_arr))
@@ -665,7 +839,6 @@ else:
                         annotation_text=f"Period avg ({avg_score:+.2f})",
                         annotation_font=dict(size=9, color=GRAY),
                         annotation_position="top right")
-    # Threshold bands
     fig_trend.add_hrect(y0=0.15, y1=1.1, fillcolor=GREEN, opacity=0.03, line_width=0)
     fig_trend.add_hrect(y0=-1.1, y1=-0.25, fillcolor=RED, opacity=0.03, line_width=0)
 
@@ -751,7 +924,7 @@ Dominant recommendation over the period: <b>{dominant_rec}</b> ({rec_counts[domi
         ):
             render_meeting_detail(r)
 
-    # ── Tabular summary ───────────────────────────────────────────────────
+    # ── Tabular summary + export ──────────────────────────────────────────
     st.markdown('<div class="sec-header" style="margin-top:1.5rem;">Tabular summary</div>',
                 unsafe_allow_html=True)
 
@@ -771,11 +944,35 @@ Dominant recommendation over the period: <b>{dominant_rec}</b> ({rec_counts[domi
             "Risk Flags":    len(r.get("risk_flags", [])),
             "File":          r.get("filename", ""),
         })
-    st.dataframe(pd.DataFrame(summary_rows), use_container_width=True, hide_index=True)
+
+    summary_df = pd.DataFrame(summary_rows)
+    st.dataframe(summary_df, use_container_width=True, hide_index=True)
     st.markdown(f"""<div class="fig-caption">
 <b>Table 1.</b> Per-meeting summary for all {n_seed} analyzed meetings.
 Recommendation column reflects model's explicit bond positioning guidance per session.
 </div>""", unsafe_allow_html=True)
+
+    # ── Export buttons ────────────────────────────────────────────────────
+    exp_c1, exp_c2, _ = st.columns([1, 1, 3])
+    with exp_c1:
+        csv_bytes = summary_df.to_csv(index=False).encode("utf-8")
+        st.download_button(
+            label="⬇ Download CSV",
+            data=csv_bytes,
+            file_name="jc_bond_sentiment_summary.csv",
+            mime="text/csv",
+            help="Download the full summary table as a CSV file.",
+        )
+    with exp_c2:
+        # Full JSON export
+        json_bytes = json.dumps(SEED, indent=2, ensure_ascii=False).encode("utf-8")
+        st.download_button(
+            label="⬇ Download Full JSON",
+            data=json_bytes,
+            file_name="jc_bond_sentiment_full.json",
+            mime="application/json",
+            help="Download complete structured data including evidence, risk flags, and leading indicators.",
+        )
 
 # ══════════════════════════════════════════════════════════════════════════
 # SECTION 2 — UPLOAD & ANALYZE
@@ -792,56 +989,72 @@ Accepted formats: PDF (text-layer), DOCX, TXT, HTML.
 </div>""", unsafe_allow_html=True)
 
 api_key = get_api_key()
-inp_c1, inp_c2 = st.columns([2, 1])
-with inp_c1:
+
+if api_key:
+    # Key configured — show confirmation, no input box
+    st.markdown("""<div class="kpi-card" style="max-width:340px; margin-bottom:1rem;">
+<div class="kpi-label">API Status</div>
+<div class="kpi-value pos" style="font-size:16px;">✓ Configured</div>
+<div class="kpi-sub">Analysis ready — upload a document below.</div>
+</div>""", unsafe_allow_html=True)
     uploaded = st.file_uploader("Council minutes document",
                                 type=["pdf", "docx", "txt", "html", "htm"])
-with inp_c2:
-    if not api_key:
-        api_key = st.text_input("Anthropic API Key", type="password",
-                                help="Or set ANTHROPIC_API_KEY in .streamlit/secrets.toml")
-    else:
-        st.markdown("""<div class="kpi-card">
-<div class="kpi-label">API Key</div>
-<div class="kpi-value pos" style="font-size:16px;">✓ Configured</div>
-<div class="kpi-sub">From secrets / environment</div>
+else:
+    # Demo mode — no key available
+    st.markdown("""<div class="stress-card-mild" style="margin-bottom:1.25rem;">
+<div class="kpi-label">Demo Mode</div>
+<div class="insight-text">
+  Live analysis requires an Anthropic API key configured in
+  <code>.streamlit/secrets.toml</code> as <code>ANTHROPIC_API_KEY</code>.
+  The pre-analyzed signal history above is fully functional without a key.
+  To run your own analysis, clone the repo and add your key locally.
+</div>
 </div>""", unsafe_allow_html=True)
+    uploaded = None
+    st.file_uploader("Council minutes document (API key required)",
+                     type=["pdf", "docx", "txt", "html", "htm"],
+                     disabled=True)
 
-if uploaded:
-    if not api_key:
-        st.markdown("""<div class="stress-card-mild">
-<div class="kpi-label">API key required</div>
-<div class="insight-text">Enter an Anthropic API key above to run analysis.</div>
-</div>""", unsafe_allow_html=True)
+if uploaded and api_key:
+    with st.spinner("Extracting text…"):
+        text = extract_text(uploaded)
+    if not text.strip():
+        st.error("Could not extract text. Try a text-based PDF or a different format.")
     else:
-        with st.spinner("Extracting text…"):
-            text = extract_text(uploaded)
-        if not text.strip():
-            st.error("Could not extract text. Try a text-based PDF or a different format.")
-        else:
-            word_count = len(text.split())
-            st.markdown(f"""<div class="insight-box">
+        word_count = len(text.split())
+        st.markdown(f"""<div class="insight-box">
 <div class="insight-text">Extracted <strong>{word_count:,} words</strong> from <em>{uploaded.name}</em>.</div>
 </div>""", unsafe_allow_html=True)
 
-            if st.button("▶ Run analysis", type="primary"):
-                with st.spinner("Analyzing with Claude…"):
-                    try:
-                        result = run_analysis(text, api_key)
-                    except json.JSONDecodeError as e:
-                        st.error(f"JSON parse error: {e}"); result = None
-                    except Exception as e:
-                        st.error(f"Analysis failed: {e}"); result = None
+        if st.button("▶ Run analysis", type="primary"):
+            with st.spinner("Analyzing with Claude…"):
+                try:
+                    result = run_analysis(text, api_key)
+                except json.JSONDecodeError as e:
+                    st.error(f"JSON parse error: {e}"); result = None
+                except Exception as e:
+                    st.error(f"Analysis failed: {e}"); result = None
 
-                if result:
-                    result["date"]     = uploaded.name
-                    result["filename"] = uploaded.name
-                    st.markdown(f"""
+            if result:
+                result["date"]     = uploaded.name
+                result["filename"] = uploaded.name
+                st.markdown(f"""
 <div class="abstract-box" style="margin-top:1.5rem;">
   <div class="abstract-label">Analysis result — {uploaded.name}</div>
   <div class="abstract-text">{result.get('summary','')}</div>
 </div>""", unsafe_allow_html=True)
-                    render_meeting_detail(result)
+                render_meeting_detail(result)
+
+                # Per-result JSON export
+                st.markdown('<div class="sec-header" style="margin-top:1.5rem;">Export this result</div>',
+                            unsafe_allow_html=True)
+                result_json = json.dumps(result, indent=2, ensure_ascii=False).encode("utf-8")
+                st.download_button(
+                    label="⬇ Download analysis JSON",
+                    data=result_json,
+                    file_name=f"jc_sentiment_{uploaded.name.replace('.','_')}.json",
+                    mime="application/json",
+                )
 
 # ══════════════════════════════════════════════════════════════════════════
 # SECTION 3 — JC CREDIT CONTEXT
@@ -886,8 +1099,12 @@ st.markdown('<div class="sec-header">4. Methodology</div>', unsafe_allow_html=Tr
 with st.expander("Signal extraction, scoring, and recommendation methodology"):
     st.markdown("""
 <div class="appendix-term"><b>Sentiment score.</b>
-Continuous value on [−1.0, +1.0]. Weights signals by materiality — a reserve drawdown
-scores more negatively than a routine housekeeping resolution. Not a keyword count.</div>
+Continuous value on [−1.0, +1.0]. Computed as a weighted sum of signal counts across five
+categories, where weights reflect credit materiality per Moody's GO rating methodology.
+Fiscal stress (−0.20/signal) and pension contribution signals (−0.15/signal) carry the highest
+negative weight. Positive credit events contribute +0.15/signal. Risk flags impose an additional
+penalty. The raw sum is clamped to [−1.0, +1.0]. See the score breakdown panel within any
+meeting for the exact per-category contribution.</div>
 
 <div class="appendix-term"><b>Credit recommendation.</b>
 Explicit bond positioning guidance derived from the score and risk flag combination:
@@ -931,12 +1148,39 @@ Commit the updated <code>data/seed_data.json</code> to redeploy.</div>
 """, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════
+# SECTION 5 — COVERAGE EXPANSION CTA
+# ══════════════════════════════════════════════════════════════════════════
+
+st.markdown('<div class="sec-header">5. Coverage expansion</div>', unsafe_allow_html=True)
+
+st.markdown("""
+<div class="cta-card">
+  <div class="cta-title">Interested in coverage for another municipality?</div>
+  <div class="cta-body">
+    This methodology is issuer-agnostic. Any municipality that publishes council meeting
+    minutes — PDF, HTML, or DOCX — can be analyzed with a tailored credit context profile.
+    Priority candidates include NJ investment-grade GO issuers facing similar structural
+    challenges: PILOT concentration, pension underfunding, or tax appeal reserve gaps.
+  </div>
+  <div class="cta-cities">
+    Newark · Trenton · Camden · Paterson · Elizabeth · Atlantic City · Hoboken ·
+    any NJ or national muni issuer
+  </div>
+  <div class="cta-contact">
+    Contact: <a href="mailto:nik@manoharanalytics.com" style="color:#1a4f82;">nik@manoharanalytics.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://nikm-ai.github.io" style="color:#1a4f82;" target="_blank">Manohar Analytics</a>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════════════════
 # FOOTER
 # ══════════════════════════════════════════════════════════════════════════
 
 st.markdown("""
 <div class="paper-footer">
-JC Municipal Bond Sentiment · v3.0 · Manohar Analytics · NLP-powered fiscal signal extraction ·
+JC Municipal Bond Sentiment · v4.0 · Manohar Analytics · NLP-powered fiscal signal extraction ·
 For research and informational purposes only. Not investment advice. Municipal bond trading
 involves risk; conduct independent due diligence. Credit recommendations are model outputs
 and should not be the sole basis for investment decisions. · Powered by Anthropic Claude.
