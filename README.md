@@ -139,21 +139,6 @@ jc_gov_sentiment/
 
 ---
 
-## Extending to other municipalities
-
-This methodology is issuer-agnostic. Any municipality that publishes council meeting minutes (PDF, HTML, DOCX) can be analyzed with a tailored credit context profile.
-
-**Priority candidates:** Newark · Trenton · Camden · Paterson · Elizabeth · Atlantic City · Hoboken · any NJ or national muni issuer
-
-Interested in coverage for another issuer? Contact [Manohar Analytics](https://nikm-ai.github.io) or email nik@manoharanalytics.com.
-
----
-
-## Built by
-
-**Nik Manohar** — [Manohar Analytics Consulting](https://nikm-ai.github.io)  
-Quantitative analyst and data scientist with backgrounds in hedge fund portfolio analytics, litigation economics, and consumer tech data science.
-
 ---
 
 *For research and informational purposes only. Not investment advice. Municipal bond trading involves risk; conduct independent due diligence. Credit recommendations are model outputs and should not be the sole basis for investment decisions.*
