@@ -213,32 +213,6 @@ st.markdown("""
     background: rgba(196,122,0,0.02);
 }
 
-/* ── CTA card ── */
-.cta-card {
-    border: 1px solid rgba(26,79,130,0.25);
-    border-radius: 2px; padding: 1.5rem 1.75rem; margin-top: 1rem;
-    background: rgba(26,79,130,0.03);
-}
-.cta-title {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 20px; font-weight: 500; color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-.cta-body {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 15px; line-height: 1.8; color: var(--text-color); opacity: 0.82;
-    margin-bottom: 0.75rem;
-}
-.cta-cities {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px; opacity: 0.6; letter-spacing: 0.03em;
-    margin-bottom: 1rem;
-}
-.cta-contact {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 500; color: #1a4f82;
-}
-
 .pos  { color: #2e7d4f !important; }
 .neg  { color: #b94040 !important; }
 .neut { color: #1a4f82 !important; }
@@ -1149,39 +1123,12 @@ Commit the updated <code>data/seed_data.json</code> to redeploy.</div>
 """, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════
-# SECTION 5 — COVERAGE EXPANSION CTA
-# ══════════════════════════════════════════════════════════════════════════
-
-st.markdown('<div class="sec-header">5. Coverage expansion</div>', unsafe_allow_html=True)
-
-st.markdown("""
-<div class="cta-card">
-  <div class="cta-title">Interested in coverage for another municipality?</div>
-  <div class="cta-body">
-    This methodology is issuer-agnostic. Any municipality that publishes council meeting
-    minutes — PDF, HTML, or DOCX — can be analyzed with a tailored credit context profile.
-    Priority candidates include NJ investment-grade GO issuers facing similar structural
-    challenges: PILOT concentration, pension underfunding, or tax appeal reserve gaps.
-  </div>
-  <div class="cta-cities">
-    Newark · Trenton · Camden · Paterson · Elizabeth · Atlantic City · Hoboken ·
-    any NJ or national muni issuer
-  </div>
-  <div class="cta-contact">
-    Contact: <a href="mailto:nik@manoharanalytics.com" style="color:#1a4f82;">nik@manoharanalytics.com</a>
-    &nbsp;·&nbsp;
-    <a href="https://nikm-ai.github.io" style="color:#1a4f82;" target="_blank">Manohar Analytics</a>
-  </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ══════════════════════════════════════════════════════════════════════════
 # FOOTER
 # ══════════════════════════════════════════════════════════════════════════
 
 st.markdown("""
 <div class="paper-footer">
-JC Municipal Bond Sentiment · v4.0 · Manohar Analytics · NLP-powered fiscal signal extraction ·
+JC Municipal Bond Sentiment · v4.0 · NLP-powered fiscal signal extraction ·
 For research and informational purposes only. Not investment advice. Municipal bond trading
 involves risk; conduct independent due diligence. Credit recommendations are model outputs
 and should not be the sole basis for investment decisions. · Powered by Anthropic Claude.
