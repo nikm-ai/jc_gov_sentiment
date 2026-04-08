@@ -1,5 +1,5 @@
 """
-JC Municipal Bond Sentiment — v4.0
+JC Municipal Bond Sentiment - v4.0
 - API key always from secrets (no user input required)
 - Demo mode when key not configured
 - Plain-English onboarding hook for cold visitors
@@ -343,7 +343,7 @@ SEED = load_seed_data(SEED_PATH)
 # ══════════════════════════════════════════════════════════════════════════
 
 def get_api_key() -> str:
-    """Retrieve API key from secrets or environment only — never from user input."""
+    """Retrieve API key from secrets or environment only - never from user input."""
     try:
         key = st.secrets.get("ANTHROPIC_API_KEY", "")
         if key:
@@ -391,7 +391,7 @@ Jersey City fiscal context:
 - PFRS/PERS contribution deferral = direct credit-negative trigger
 - Vote splits on fiscal items = governance execution risk
 
-PENSION SIGNAL INSTRUCTIONS (critical — do not undercount):
+PENSION SIGNAL INSTRUCTIONS (critical - do not undercount):
 Count a pension signal for ANY of the following:
   - Any mention of PFRS, PERS, pension, retirement system, actuarial, ADEC, unfunded liability
   - Any resolution appropriating funds that could relate to pension obligations
@@ -551,7 +551,7 @@ def render_evidence(evidence: list[dict]):
         signal    = ev.get("signal", "")
         detail    = ev.get("detail", "")
         st.markdown(f"""<div class="evidence-item {ev_css}">
-<div class="evidence-signal" style="color:{ev_color};">{cat_label} — {signal}</div>
+<div class="evidence-signal" style="color:{ev_color};">{cat_label} - {signal}</div>
 <div class="evidence-detail">{detail}</div>
 </div>""", unsafe_allow_html=True)
 
@@ -565,7 +565,7 @@ def render_meeting_detail(r: dict, show_score_breakdown: bool = True):
 
     st.markdown(f"""
 <div class="abstract-box" style="margin-top:0.5rem; margin-bottom:1rem;">
-  <div class="abstract-label">Analyst summary — {r['date']}</div>
+  <div class="abstract-label">Analyst summary - {r['date']}</div>
   <div class="abstract-text">{r['summary']}</div>
 </div>""", unsafe_allow_html=True)
 
@@ -610,7 +610,7 @@ def render_meeting_detail(r: dict, show_score_breakdown: bool = True):
             st.markdown('<div class="sec-header" style="margin-top:1.25rem;">Key agenda items</div>',
                         unsafe_allow_html=True)
             for item in r["key_items"]:
-                st.markdown(f'<div class="appendix-term">— {item}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="appendix-term">- {item}</div>', unsafe_allow_html=True)
     with kc2:
         if r.get("leading_indicators"):
             st.markdown('<div class="sec-header" style="margin-top:1.25rem;">Leading indicators to watch</div>',
@@ -623,7 +623,7 @@ def render_meeting_detail(r: dict, show_score_breakdown: bool = True):
                     unsafe_allow_html=True)
         for flag in r["risk_flags"]:
             st.markdown(f"""<div class="stress-card">
-<div class="kpi-label">⚑ Credit negative — requires analyst review</div>
+<div class="kpi-label">⚑ Credit negative - requires analyst review</div>
 <div class="insight-text">{flag}</div>
 </div>""", unsafe_allow_html=True)
 
@@ -636,7 +636,7 @@ st.markdown("""
 <div class="paper-title">Jersey City Municipal Bond Sentiment</div>
 <div class="paper-byline">
 NLP-powered fiscal signal extraction · credit recommendation · bond market implications ·
-signal evidence · leading indicator tracking — Jersey City, NJ municipal credit research
+signal evidence · leading indicator tracking - Jersey City, NJ municipal credit research
 </div>
 """, unsafe_allow_html=True)
 
@@ -646,11 +646,11 @@ st.markdown("""
   <div class="hook-headline">What is this?</div>
   <div class="hook-body">
     Jersey City carries ~$1.2B in unfunded pension liability and relies on a single revenue
-    stream — tax abatement payments — for nearly a third of its budget. When the city council
+    stream - tax abatement payments - for nearly a third of its budget. When the city council
     meets, the agenda text contains early signals about whether that credit picture is
     improving or deteriorating. This tool reads those minutes and translates them into an
     explicit bond positioning recommendation (Overweight / Market Weight / Underweight / Monitor)
-    with sourced evidence — the same workflow a muni credit analyst would follow, automated.
+    with sourced evidence - the same workflow a muni credit analyst would follow, automated.
   </div>
 </div>
 """, unsafe_allow_html=True)
@@ -666,8 +666,8 @@ st.markdown(f"""
   <div class="abstract-label">Overview</div>
   <div class="abstract-text">
     This tool extracts structured bond-relevant signals from Jersey City Municipal Council
-    meeting minutes and translates them into explicit credit recommendations — Overweight,
-    Market Weight, Underweight, or Monitor — with supporting evidence sourced directly from
+    meeting minutes and translates them into explicit credit recommendations - Overweight,
+    Market Weight, Underweight, or Monitor - with supporting evidence sourced directly from
     the agenda text. Signals are classified across five categories (fiscal stress, PILOT/abatement
     activity, pension contribution status, political cohesion, and positive credit events) and
     scored on a continuous −1.0 to +1.0 scale. Each analysis includes a bond market implications
@@ -681,12 +681,12 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════
-# SECTION 1 — SIGNAL HISTORY
+# SECTION 1 - SIGNAL HISTORY
 # ══════════════════════════════════════════════════════════════════════════
 
 st.markdown(
     f'<div class="sec-header">1. Signal history'
-    f'{" — " + str(n_seed) + " meetings (" + date_range + ")" if n_seed > 0 else ""}'
+    f'{" - " + str(n_seed) + " meetings (" + date_range + ")" if n_seed > 0 else ""}'
     f'</div>',
     unsafe_allow_html=True,
 )
@@ -895,7 +895,7 @@ Dominant recommendation over the period: <b>{dominant_rec}</b> ({rec_counts[domi
         flags = len(r.get("risk_flags", []))
         flag_str = f"  ·  ⚑ {flags} flag(s)" if flags else ""
         with st.expander(
-            f"{r['date']}  ·  {r['signal']}  ({r['score']:+.2f})  ·  {rec}{flag_str}  —  {r.get('filename','')}"
+            f"{r['date']}  ·  {r['signal']}  ({r['score']:+.2f})  ·  {rec}{flag_str}  -  {r.get('filename','')}"
         ):
             render_meeting_detail(r)
 
@@ -910,7 +910,7 @@ Dominant recommendation over the period: <b>{dominant_rec}</b> ({rec_counts[domi
             "Date":          r["date"],
             "Signal":        r["signal"],
             "Score":         f"{r['score']:+.2f}",
-            "Recommendation":r.get("credit_recommendation", "—"),
+            "Recommendation":r.get("credit_recommendation", "-"),
             "Fiscal Stress": cats.get("fiscal_stress", 0),
             "PILOT":         cats.get("pilot", 0),
             "Pension":       cats.get("pension", 0),
@@ -950,7 +950,7 @@ Recommendation column reflects model's explicit bond positioning guidance per se
         )
 
 # ══════════════════════════════════════════════════════════════════════════
-# SECTION 2 — UPLOAD & ANALYZE
+# SECTION 2 - UPLOAD & ANALYZE
 # ══════════════════════════════════════════════════════════════════════════
 
 st.markdown('<div class="sec-header">2. Upload and analyze a new council meeting</div>',
@@ -959,23 +959,23 @@ st.markdown('<div class="sec-header">2. Upload and analyze a new council meeting
 st.markdown("""<div class="explainer-body">
 Upload a Jersey City council meeting minutes document to run a live analysis. The model
 returns a credit recommendation, bond market implications statement, sourced signal evidence,
-leading indicators, and risk flags — all grounded in Jersey City-specific fiscal context.
+leading indicators, and risk flags - all grounded in Jersey City-specific fiscal context.
 Accepted formats: PDF (text-layer), DOCX, TXT, HTML.
 </div>""", unsafe_allow_html=True)
 
 api_key = get_api_key()
 
 if api_key:
-    # Key configured — show confirmation, no input box
+    # Key configured - show confirmation, no input box
     st.markdown("""<div class="kpi-card" style="max-width:340px; margin-bottom:1rem;">
 <div class="kpi-label">API Status</div>
 <div class="kpi-value pos" style="font-size:16px;">✓ Configured</div>
-<div class="kpi-sub">Analysis ready — upload a document below.</div>
+<div class="kpi-sub">Analysis ready - upload a document below.</div>
 </div>""", unsafe_allow_html=True)
     uploaded = st.file_uploader("Council minutes document",
                                 type=["pdf", "docx", "txt", "html", "htm"])
 else:
-    # Demo mode — no key available
+    # Demo mode - no key available
     st.markdown("""<div class="stress-card-mild" style="margin-bottom:1.25rem;">
 <div class="kpi-label">Demo Mode</div>
 <div class="insight-text">
@@ -1015,7 +1015,7 @@ if uploaded and api_key:
                 result["filename"] = uploaded.name
                 st.markdown(f"""
 <div class="abstract-box" style="margin-top:1.5rem;">
-  <div class="abstract-label">Analysis result — {uploaded.name}</div>
+  <div class="abstract-label">Analysis result - {uploaded.name}</div>
   <div class="abstract-text">{result.get('summary','')}</div>
 </div>""", unsafe_allow_html=True)
                 render_meeting_detail(result)
@@ -1032,7 +1032,7 @@ if uploaded and api_key:
                 )
 
 # ══════════════════════════════════════════════════════════════════════════
-# SECTION 3 — JC CREDIT CONTEXT
+# SECTION 3 - JC CREDIT CONTEXT
 # ══════════════════════════════════════════════════════════════════════════
 
 st.markdown('<div class="sec-header">3. Jersey City credit context</div>',
@@ -1049,7 +1049,7 @@ context_l = [
 ]
 context_r = [
     ("Tax Appeal Exposure", "~$380M pending",
-     "Pending appeals vs. ~$22M reserve — ~6% coverage. Settlement overruns erode fiscal flexibility."),
+     "Pending appeals vs. ~$22M reserve - ~6% coverage. Settlement overruns erode fiscal flexibility."),
     ("Peer Universe", "NJ Investment-Grade GO",
      "Comparison universe: NJ GO issuers rated A2/A or better."),
     ("Recommendation Thresholds", "±0.15 / ±0.25",
@@ -1066,7 +1066,7 @@ for col, items in [(cx_c1, context_l), (cx_c2, context_r)]:
 </div>""", unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════
-# SECTION 4 — METHODOLOGY
+# SECTION 4 - METHODOLOGY
 # ══════════════════════════════════════════════════════════════════════════
 
 st.markdown('<div class="sec-header">4. Methodology</div>', unsafe_allow_html=True)
@@ -1087,7 +1087,7 @@ Overweight (score > +0.20, no material flags), Market Weight (−0.15 to +0.20),
 Monitor (near-zero with specific watch items), Underweight (score < −0.25 or 2+ flags).</div>
 
 <div class="appendix-term"><b>Credit implications.</b>
-A 2–3 sentence statement connecting meeting findings to bond market consequences —
+A 2–3 sentence statement connecting meeting findings to bond market consequences -
 spread direction, rating trajectory, debt service coverage, or liquidity. Written for
 an institutional fixed-income audience.</div>
 
@@ -1101,7 +1101,7 @@ Linear regression slope across all meeting scores. Improving = slope > 0.03 and 
 threshold. Stable = no material directional trend.</div>
 
 <div class="appendix-term"><b>Risk flags.</b>
-Discrete credit-negative items warranting analyst escalation — distinct from category
+Discrete credit-negative items warranting analyst escalation - distinct from category
 counts. Named events (e.g., settlement exceeding reserve by a material amount) that
 a credit analyst would place on formal watch.</div>
 """, unsafe_allow_html=True)
