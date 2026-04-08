@@ -1,0 +1,289 @@
+[
+  {
+    "score": 0.1,
+    "signal": "Neutral",
+    "summary": "Routine administrative session with unanimous council cohesion on most items. Emergency appropriation authorized without detail, raising mild monitoring concern. Political friction emerged on Economic Development director appointment (7-2 vote) while Public Safety director appointment saw abstentions, suggesting potential governance dynamics to track. No material PILOT, pension, or acute fiscal stress signals detected in agenda.",
+    "categories": {
+      "fiscal_stress": 1,
+      "pilot": 1,
+      "pension": 0,
+      "political_cohesion": 2,
+      "positive": 2
+    },
+    "leading_indicators": [
+      "Emergency appropriation specifics and budget pressures",
+      "Political dynamics on key appointments and fiscal votes",
+      "Environmental remediation costs and municipal exposure"
+    ],
+    "key_items": [
+      "Emergency temporary appropriation authorization",
+      "Split votes on Economic Development/Public Safety director appointments",
+      "Multiple environmental remediation project notifications",
+      "Redevelopment area designation with condemnation powers"
+    ],
+    "risk_flags": [],
+    "date": "2026-03-25",
+    "filename": "03.25.2026.pdf",
+    "words": 4288
+  },
+  {
+    "score": 0.2,
+    "signal": "Neutral",
+    "summary": "The council meeting displayed strong procedural cohesion with unanimous votes on nearly all fiscal matters and key resolutions. Routine business items included SID budget approval and settlements, while revenue-neutral items dominated the agenda. The lengthy public comment period indicates civic engagement but no specific credit-threatening issues were identified in the agenda items.",
+    "categories": {
+      "fiscal_stress": 0,
+      "pilot": 0,
+      "pension": 0,
+      "political_cohesion": 1,
+      "positive": 2
+    },
+    "leading_indicators": [
+      "Monitor outcomes of Executive Order 2026-004 citywide rent control audit for revenue implications",
+      "Track progress on Jackson Hill Main Street SID implementation and assessment collection",
+      "Watch for development activity in Powerhouse Arts District redevelopment plan amendments"
+    ],
+    "key_items": [
+      "Jackson Hill Main Street SID 2026 Assessment Roll and Budget approval",
+      "Executive Order 2026-004 establishing citywide rent control audit",
+      "Powerhouse Arts District redevelopment plan amendments introduced",
+      "Multiple shared services agreements expanding regional cooperation"
+    ],
+    "risk_flags": [],
+    "date": "2026-03-11",
+    "filename": "03.11.2026.pdf",
+    "words": 3907
+  },
+  {
+    "score": 0.1,
+    "signal": "Neutral",
+    "summary": "Jersey City Council held a routine February meeting with unanimous passage of most agenda items and strong public participation (114 speakers). Positive signals include submitting a Transitional Aid Application (resolution 26-093) suggesting proactive financial management, and unanimous approval of Financial Advisory Services contract (resolution 26-091). However, the defeat of a cannabis business resolution (26-085) signals potential friction over revenue-generating initiatives. Overall activity suggests normal municipal operations with no major fiscal stress indicators.",
+    "categories": {
+      "fiscal_stress": 0,
+      "pilot": 0,
+      "pension": 0,
+      "political_cohesion": 1,
+      "positive": 2
+    },
+    "leading_indicators": [
+      "Monitor transitional aid application outcome and any conditions",
+      "Track progress on Journal Square redevelopment plan amendments",
+      "Watch for future cannabis business applications and revenue implications"
+    ],
+    "key_items": [
+      "Transitional Aid Application submission for 2026",
+      "Financial Advisory Services contract awarded to Acacia Financial Group",
+      "Cannabis business resolution defeated",
+      "Journal Square 2060 Redevelopment Plan amendment directed"
+    ],
+    "risk_flags": [],
+    "date": "2026-02-25",
+    "filename": "02.25.2026.pdf",
+    "words": 3742
+  },
+  {
+    "score": -0.2,
+    "signal": "Bearish",
+    "summary": "The February 11, 2026 council meeting reveals notable operational disruptions with multiple Acting Directors appointed in January (Finance, Corporation Counsel, Public Works, etc.), suggesting administrative instability. Tax appeal defense resources are being strengthened through new appraisal service contracts, which is positive but indicates ongoing pressure from property valuation challenges. The unanimous passage of appropriation reserve transfers and emergency appropriations without significant debate suggests routine fiscal management, though the need for emergency appropriations warrants monitoring.",
+    "categories": {
+      "fiscal_stress": 1,
+      "pilot": 0,
+      "pension": 0,
+      "political_cohesion": 1,
+      "positive": 2
+    },
+    "leading_indicators": [
+      "Administrative stability following recent leadership transitions",
+      "Volume and outcomes of tax appeals given strengthened defense resources",
+      "Emergency appropriation frequency and underlying budget pressures"
+    ],
+    "key_items": [
+      "Multiple Acting Director appointments across key departments",
+      "Tax assessor appraisal service contracts for appeal defense",
+      "Emergency temporary appropriation authorization",
+      "Rent Protection Special Investigation Committee establishment"
+    ],
+    "risk_flags": [
+      "Administrative disruption with widespread Acting Director appointments in Finance and other key departments"
+    ],
+    "date": "2026-02-11",
+    "filename": "02.11.2026.pdf",
+    "words": 3925
+  },
+  {
+    "score": 0.3,
+    "signal": "Bullish",
+    "summary": "Executive Order 2026-002 establishing a citywide tax abatement audit represents proactive fiscal governance that could strengthen Jersey City's credit profile. The measure demonstrates administrative oversight of a revenue stream critical to Jersey City's tax base and addresses longstanding concerns about abatement oversight. Council demonstrated strong fiscal cohesion with 9-0 unanimous passage of all major budget-related items. Monitor implementation of the abatement audit and its potential impact on PILOT revenue streams.",
+    "categories": {
+      "fiscal_stress": 0,
+      "pilot": 1,
+      "pension": 0,
+      "political_cohesion": 1,
+      "positive": 2
+    },
+    "leading_indicators": [
+      "Tax abatement audit implementation timeline and methodology",
+      "Findings from citywide abatement review affecting future PILOT revenue",
+      "Council unity on upcoming budget adoption votes"
+    ],
+    "key_items": [
+      "Executive Order 2026-002 establishing citywide tax abatement audit",
+      "Unanimous 9-0 approval of Jackson Hill SID budget resolution",
+      "Strong council cohesion across fiscal items with minimal dissent",
+      "Withdrawal of Director of Finance appointment requiring re-examination"
+    ],
+    "risk_flags": [],
+    "date": "2026-01-28",
+    "filename": "01.28.2026.pdf",
+    "words": 3525
+  },
+  {
+    "score": 0.0,
+    "signal": "Neutral",
+    "summary": "January 5, 2026 Jersey City council meeting was routine administrative session with unanimous votes on procedural items including reorganization timing change and election-related contract ratifications. No fiscal policy items were addressed, and extensive deferred ordinance table (14 items including bond ordinance 25-119) reflects typical end-of-year deferral pattern rather than execution issues. Meeting provides no material credit-relevant signals but confirms operational continuity ahead of reorganization meeting.",
+    "categories": {
+      "fiscal_stress": 0,
+      "pilot": 0,
+      "pension": 0,
+      "political_cohesion": 0,
+      "positive": 0
+    },
+    "leading_indicators": [
+      "Bond ordinance 25-119 reappropriating $58.3M to monitor for advancement",
+      "Jackson Square lease/purchase agreement (Ord. 25-110) progression",
+      "Council reorganization meeting January 15 leadership dynamics"
+    ],
+    "key_items": [
+      "Reorganization meeting rescheduled to 4:00 p.m. January 15",
+      "Election printing contract ratification ($amount unspecified)",
+      "Hudson County election services reimbursement approval",
+      "14 ordinances remain tabled including $58.3M bond reappropriation"
+    ],
+    "risk_flags": [],
+    "date": "2026-01-05",
+    "filename": "01.05.2026.pdf",
+    "words": 4035
+  },
+  {
+    "score": -0.35,
+    "signal": "Bearish",
+    "summary": "Two critical capital financing ordinances were tabled unanimously, including a $58.4 million bond reappropriation amid public park coalition concerns over financial management. Multiple ordinance defeats (6-1, 0-9) and appointment rejection (0-8-1) signal significant political fragmentation that could impair future fiscal decision-making. While routine operations continue normally, the council's inability to advance major financial measures raises execution risks for capital programs and budget flexibility.",
+    "categories": {
+      "fiscal_stress": 2,
+      "pilot": 0,
+      "pension": 0,
+      "political_cohesion": 4,
+      "positive": 1
+    },
+    "leading_indicators": [
+      "Progress on tabled $58.4M bond reappropriation ordinance",
+      "Council vote patterns on subsequent fiscal measures",
+      "Public opposition to capital spending plans"
+    ],
+    "key_items": [
+      "Tabled $58.4M bond reappropriation ordinance (Ord. 25-119)",
+      "Tabled Jackson Square lease agreement (Ord. 25-110)",
+      "Multiple ordinance defeats showing political divisions",
+      "Unanimous rejection of MUA appointment"
+    ],
+    "risk_flags": [
+      "Capital financing delays from tabled bond ordinance",
+      "Political cohesion breakdown evidenced by multiple defeats",
+      "Public opposition to financial management decisions"
+    ],
+    "date": "2025-12-10",
+    "filename": "12.10.2025.pdf",
+    "words": 5723
+  },
+  {
+    "score": -0.4,
+    "signal": "Bearish",
+    "summary": "Two major PILOTs were defeated, including a 30-year tax exemption at Newport Parkway and a rent control amendment that would limit abatements. A key bond ordinance for $58.4M in capital improvements was carried to December, suggesting potential execution challenges. The resignation of Business Administrator John Metro and appointment of an acting replacement adds operational uncertainty during a critical fiscal period.",
+    "categories": {
+      "fiscal_stress": 2,
+      "pilot": 2,
+      "pension": 0,
+      "political_cohesion": 2,
+      "positive": 1
+    },
+    "leading_indicators": [
+      "December 10 bond ordinance vote outcome signals capital execution capacity",
+      "Acting Business Administrator transition effectiveness during budget season",
+      "Rent control defeat impact on future PILOT/abatement negotiations"
+    ],
+    "key_items": [
+      "Defeated 30-year tax exemption ordinance for Newport Parkway mixed-use project",
+      "Carried bond ordinance for $58.4M capital improvements to December meeting",
+      "Business Administrator John Metro resignation, Peter Horton named acting replacement",
+      "Defeated rent control amendment targeting institutional ownership units"
+    ],
+    "risk_flags": [
+      "Multiple PILOT defeats reduce future revenue pipeline certainty",
+      "Leadership transition mid-fiscal year creates execution risk",
+      "Deferred capital bond suggests potential financing challenges"
+    ],
+    "date": "2025-11-25",
+    "filename": "11.25.2025.pdf",
+    "words": 5598
+  },
+  {
+    "score": 0.1,
+    "signal": "Neutral",
+    "summary": "The November 12 meeting reflected routine municipal business with strong political cohesion evidenced by unanimous or near-unanimous votes on key fiscal items. The Council approved $58.4M in bond reappropriations and authorized up to $36.5M in emergency notes, including $22.5M for health insurance/tax appeal liabilities. While fiscal pressures are evident in emergency borrowing needs, the measured approach to reappropriating existing bond proceeds rather than issuing new debt signals prudent capital management.",
+    "categories": {
+      "fiscal_stress": 2,
+      "pilot": 2,
+      "pension": 0,
+      "political_cohesion": 1,
+      "positive": 3
+    },
+    "leading_indicators": [
+      "Emergency borrowing rationale and timeline for $22.5M health/tax appeal liability note",
+      "Implementation status of bond reappropriation projects from $58.4M authorization",
+      "JCMUA appointment delays potentially signaling utility governance complications"
+    ],
+    "key_items": [
+      "Bond Ordinance reappropriating $58.4M in excess proceeds for capital improvements",
+      "Emergency appropriation and note authorization for $22.5M health/tax appeal liabilities",
+      "30-year tax exemption approval for Newport Parkway mixed-use development",
+      "Sixth Street Embankment litigation settlement authorization"
+    ],
+    "risk_flags": [
+      "Emergency borrowing for health insurance and tax appeal liabilities suggests liquidity pressures",
+      "$22.5M emergency note authorization indicates potential reserve adequacy concerns"
+    ],
+    "date": "2025-11-12",
+    "filename": "11.12.2025.pdf",
+    "words": 7278
+  },
+  {
+    "score": -0.4,
+    "signal": "Bearish",
+    "summary": "Council authorized $14 million in special emergency appropriations for contractually required severance liabilities, introducing meaningful unbudgeted expense pressure. First reading passed 8-1 with political division evident. While routine operations continued with unanimous resolutions and grant acceptances, the large severance appropriation creates immediate fiscal strain. Tax assessor cancelled $662k in taxes for city property acquisitions, further eroding revenue base.",
+    "categories": {
+      "fiscal_stress": 2,
+      "pilot": 1,
+      "pension": 0,
+      "political_cohesion": 1,
+      "positive": 1
+    },
+    "leading_indicators": [
+      "Council vote patterns on upcoming fiscal items",
+      "Adequacy of budgeted severance reserves vs. actual liabilities",
+      "Net impact of property acquisitions on tax base"
+    ],
+    "key_items": [
+      "$14M emergency severance appropriation (8-1 vote)",
+      "Tax abatement authorization for 437 Marin Boulevard",
+      "Tax cancellation for city property acquisitions ($662k total)",
+      "Multiple deferred ordinances indicating execution challenges"
+    ],
+    "risk_flags": [
+      "Unbudgeted $14M severance liability requiring emergency appropriation",
+      "Political division on emergency fiscal measures (8-1 vote)",
+      "Revenue erosion from property tax cancellations"
+    ],
+    "date": "2025-10-22",
+    "filename": "10.22.2025.pdf",
+    "words": 4277
+  }
+]
